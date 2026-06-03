@@ -1,3 +1,10 @@
+const tg = window.Telegram.WebApp;
+
+tg.expand();
+
+console.log("Telegram User:");
+
+console.log(tg.initDataUnsafe.user);
 async function sendCommand(command){
 
 try{
