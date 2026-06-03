@@ -2,7 +2,7 @@ async function sendCommand(command){
 
 try{
 
-```
+
 const response = await fetch('/api/sendcommand',{
 
   method:'POST',
@@ -20,14 +20,14 @@ const response = await fetch('/api/sendcommand',{
 const data = await response.json();
 
 console.log(data);
-```
+
 
 }
 catch(error){
 
-```
+
 console.error(error);
-```
+
 
 }
 
@@ -65,15 +65,15 @@ document.getElementById("led1").addEventListener("change",function(){
 
 if(this.checked){
 
-```
+
 sendCommand("led1on");
-```
+
 
 }else{
 
-```
+
 sendCommand("led1off");
-```
+
 
 }
 
@@ -83,15 +83,15 @@ document.getElementById("led2").addEventListener("change",function(){
 
 if(this.checked){
 
-```
+
 sendCommand("led2on");
-```
+
 
 }else{
 
-```
+
 sendCommand("led2off");
-```
+
 
 }
 
@@ -101,15 +101,15 @@ document.getElementById("led3").addEventListener("change",function(){
 
 if(this.checked){
 
-```
+
 sendCommand("led3on");
-```
+
 
 }else{
 
-```
+
 sendCommand("led3off");
-```
+
 
 }
 
@@ -119,15 +119,15 @@ document.getElementById("led4").addEventListener("change",function(){
 
 if(this.checked){
 
-```
+
 sendCommand("led4on");
-```
+
 
 }else{
 
-```
+
 sendCommand("led4off");
-```
+
 
 }
 
@@ -137,15 +137,15 @@ document.getElementById("led5").addEventListener("change",function(){
 
 if(this.checked){
 
-```
+
 sendCommand("led5on");
-```
+
 
 }else{
 
-```
+
 sendCommand("led5off");
-```
+
 
 }
 
