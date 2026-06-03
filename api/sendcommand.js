@@ -26,7 +26,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           chat_id: CHAT_ID,
-          text: command
+          text: "web-" + command
         })
       }
     );
