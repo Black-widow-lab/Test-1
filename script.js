@@ -1,3 +1,28 @@
+async function sendMQTT(topic, message)
+{
+  try
+  {
+    const response = await fetch('/api/publish', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        topic: topic,
+        message: message
+      })
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+  }
+  catch(error)
+  {
+    console.error(error);
+  }
+}    
+
 const tg = window.Telegram.WebApp;
 
 tg.expand();
@@ -57,14 +82,20 @@ color:"#00ff00"
 });
 
 picker1.on("color:change",function(color){
-
-console.log("RGB1:",color.hexString);
+   sendMQTT(
+    "home/rgb1",
+    color.hexString.replace("#","")
+  );
 
 });
 
-picker2.on("color:change",function(color){
 
-console.log("RGB2:",color.hexString);
+picker2.on("color:change", function(color){
+
+  sendMQTT(
+    "home/rgb2",
+    color.hexString.replace("#","")
+  );
 
 });
 
@@ -73,13 +104,13 @@ document.getElementById("led1").addEventListener("change",function(){
 if(this.checked){
 
 
-sendCommand("led1on");
+sendMQTT("home/led1","ON");
 
 
 }else{
 
 
-sendCommand("led1off");
+sendMQTT("home/led1","OFF");
 
 
 }
@@ -91,13 +122,13 @@ document.getElementById("led2").addEventListener("change",function(){
 if(this.checked){
 
 
-sendCommand("led2on");
+sendMQTT("home/led2","ON");
 
 
 }else{
 
 
-sendCommand("led2off");
+sendMQTT("home/led2","OFF");
 
 
 }
@@ -109,13 +140,13 @@ document.getElementById("led3").addEventListener("change",function(){
 if(this.checked){
 
 
-sendCommand("led3on");
+sendMQTT("home/led3","ON");
 
 
 }else{
 
 
-sendCommand("led3off");
+sendMQTT("home/led3","OFF");
 
 
 }
@@ -127,14 +158,12 @@ document.getElementById("led4").addEventListener("change",function(){
 if(this.checked){
 
 
-sendCommand("led4on");
-
+sendMQTT("home/led4","ON");
 
 }else{
 
 
-sendCommand("led4off");
-
+sendMQTT("home/led4","OFF");
 
 }
 
@@ -145,14 +174,12 @@ document.getElementById("led5").addEventListener("change",function(){
 if(this.checked){
 
 
-sendCommand("led5on");
-
+sendMQTT("home/led5","ON");
 
 }else{
 
 
-sendCommand("led5off");
-
+sendMQTT("home/led1","OFF");
 
 }
 
