@@ -1,112 +1,86 @@
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Smart Home Dashboard</title>
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Home Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
-
 <body>
+  <div class="container">
+    <h1>🏠 Smart Home Dashboard</h1>
 
-<h1>🏠 Smart Home Dashboard</h1>
+    <div class="card">
+      <span>Relay 1</span>
+      <label class="switch">
+        <input type="checkbox" id="relay1">
+        <span class="slider"></span>
+      </label>
+    </div>
 
-<div class="container">
+    <div class="card">
+      <span>Relay 2</span>
+      <label class="switch">
+        <input type="checkbox" id="relay2">
+        <span class="slider"></span>
+      </label>
+    </div>
 
-<div class="card">
+    <div class="card">
+      <span>Relay 3</span>
+      <label class="switch">
+        <input type="checkbox" id="relay3">
+        <span class="slider"></span>
+      </label>
+    </div>
 
-<h2>💡 LED1</h2>
+    <div class="card">
+      <span>Relay 4</span>
+      <label class="switch">
+        <input type="checkbox" id="relay4">
+        <span class="slider"></span>
+      </label>
+    </div>
 
-<label class="switch">
-<input type="checkbox" id="led1">
-<span class="slider"></span>
-</label>
+    <div class="card">
+      <span>Relay 5</span>
+      <label class="switch">
+        <input type="checkbox" id="relay5">
+        <span class="slider"></span>
+      </label>
+    </div>
 
-</div>
+    <div class="card">
+      <span>Relay 6</span>
+      <label class="switch">
+        <input type="checkbox" id="relay6">
+        <span class="slider"></span>
+      </label>
+    </div>
 
-<div class="card">
+    <div class="card">
+      <span>Relay 7</span>
+      <label class="switch">
+        <input type="checkbox" id="relay7">
+        <span class="slider"></span>
+      </label>
+    </div>
 
-<h2>💡 LED2</h2>
+    <div class="card">
+      <span>Relay 8</span>
+      <label class="switch">
+        <input type="checkbox" id="relay8">
+        <span class="slider"></span>
+      </label>
+    </div>
 
-<label class="switch">
-<input type="checkbox" id="led2">
-<span class="slider"></span>
-</label>
+    <div class="master">
+      <button id="allOn">🏠 ALL ON</button>
+      <button id="allOff">🏠 ALL OFF</button>
+    </div>
+  </div>
 
-</div>
-
-<div class="card">
-
-<h2>💡 LED3</h2>
-
-<label class="switch">
-<input type="checkbox" id="led3">
-<span class="slider"></span>
-</label>
-
-</div>
-
-<div class="card">
-
-<h2>💡 LED4</h2>
-
-<label class="switch">
-<input type="checkbox" id="led4">
-<span class="slider"></span>
-</label>
-
-</div>
-
-<div class="card">
-
-<h2>💡 LED5</h2>
-
-<label class="switch">
-<input type="checkbox" id="led5">
-<span class="slider"></span>
-</label>
-
-</div>
-
-<div class="card rgb-card">
-
-<h2>🌈 RGB LED 1</h2>
-
-<div id="picker1"></div>
-
-</div>
-
-<div class="card rgb-card">
-
-<h2>🌈 RGB LED 2</h2>
-
-<div id="picker2"></div>
-
-</div>
-
-<div class="master">
-
-<button id="allOn">
-🏠 ALL ON
-</button>
-
-<button id="allOff">
-🏠 ALL OFF
-</button>
-
-</div>
-
-</div>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
