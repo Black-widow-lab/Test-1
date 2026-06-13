@@ -1,85 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Home Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <div class="container">
+  <main class="app">
     <h1>🏠 Smart Home Dashboard</h1>
 
-    <div class="card">
-      <span>Relay 1</span>
-      <label class="switch">
-        <input type="checkbox" id="relay1">
-        <span class="slider"></span>
-      </label>
-    </div>
+    <section class="dashboard">
+      <div class="card">
+        <h2>💡 Light 1</h2>
+        <label class="switch">
+          <input type="checkbox" id="light1" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-    <div class="card">
-      <span>Relay 2</span>
-      <label class="switch">
-        <input type="checkbox" id="relay2">
-        <span class="slider"></span>
-      </label>
-    </div>
+      <div class="card">
+        <h2>💡 Light 2</h2>
+        <label class="switch">
+          <input type="checkbox" id="light2" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-    <div class="card">
-      <span>Relay 3</span>
-      <label class="switch">
-        <input type="checkbox" id="relay3">
-        <span class="slider"></span>
-      </label>
-    </div>
+      <div class="card">
+        <h2>💡 Light 3</h2>
+        <label class="switch">
+          <input type="checkbox" id="light3" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-    <div class="card">
-      <span>Relay 4</span>
-      <label class="switch">
-        <input type="checkbox" id="relay4">
-        <span class="slider"></span>
-      </label>
-    </div>
+      <div class="card">
+        <h2>💡 Light 4</h2>
+        <label class="switch">
+          <input type="checkbox" id="light4" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-    <div class="card">
-      <span>Relay 5</span>
-      <label class="switch">
-        <input type="checkbox" id="relay5">
-        <span class="slider"></span>
-      </label>
-    </div>
+      <div class="card">
+        <h2>🌀 Fan 1</h2>
+        <label class="switch">
+          <input type="checkbox" id="fan1" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-    <div class="card">
-      <span>Relay 6</span>
-      <label class="switch">
-        <input type="checkbox" id="relay6">
-        <span class="slider"></span>
-      </label>
-    </div>
+      <div class="card">
+        <h2>🌀 Fan 2</h2>
+        <label class="switch">
+          <input type="checkbox" id="fan2" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-    <div class="card">
-      <span>Relay 7</span>
-      <label class="switch">
-        <input type="checkbox" id="relay7">
-        <span class="slider"></span>
-      </label>
-    </div>
+      <div class="card">
+        <h2>🌀 Fan 3</h2>
+        <label class="switch">
+          <input type="checkbox" id="fan3" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-    <div class="card">
-      <span>Relay 8</span>
-      <label class="switch">
-        <input type="checkbox" id="relay8">
-        <span class="slider"></span>
-      </label>
-    </div>
+      <div class="card">
+        <h2>🌀 Fan 4</h2>
+        <label class="switch">
+          <input type="checkbox" id="fan4" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
 
-    <div class="master">
-      <button id="allOn">🏠 ALL ON</button>
-      <button id="allOff">🏠 ALL OFF</button>
-    </div>
-  </div>
+    <section class="master">
+      <button id="allOn" type="button">🏠 ALL ON</button>
+      <button id="allOff" type="button">🏠 ALL OFF</button>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
