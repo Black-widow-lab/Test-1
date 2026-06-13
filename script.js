@@ -1,135 +1,123 @@
-async function sendMQTT(topic, message)
-{
-  try
-  {
-    const response = await fetch('/api/publish', {
-      method: 'POST',
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+const relayTopics = [
+  "home/relay1",
+  "home/relay2",
+  "home/relay3",
+  "home/relay4",
+  "home/relay5",
+  "home/relay6",
+  "home/relay7",
+  "home/relay8"
+];
+
+const relayIds = [
+  "relay1",
+  "relay2",
+  "relay3",
+  "relay4",
+  "relay5",
+  "relay6",
+  "relay7",
+  "relay8"
+];
+
+async function sendMQTT(topic, message) {
+  console.log("Publishing MQTT message:", { topic, message });
+
+  try {
+    const response = await fetch("/api/publish", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        topic: topic,
-        message: message
+        topic,
+        message
       })
     });
 
-    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
 
-    console.log(data);
-  }
-  catch(error)
-  {
-    console.error(error);
+    console.log("MQTT message published successfully:", { topic, message });
+  } catch (error) {
+    console.error("MQTT publish failed:", error);
   }
 }
 
-const tg = window.Telegram.WebApp;
+function getRelayToggle(relayId) {
+  return document.getElementById(relayId);
+}
 
-tg.expand();
+function setRelayToggle(relayId, checked) {
+  const toggle = getRelayToggle(relayId);
 
-console.log("Telegram User:");
-console.log(tg.initDataUnsafe.user);
-
-const picker1 = new iro.ColorPicker("#picker1", {
-  width: 220,
-  color: "#ff0000"
-});
-
-const picker2 = new iro.ColorPicker("#picker2", {
-  width: 220,
-  color: "#00ff00"
-});
-
-picker1.on("color:change", function(color)
-{
-  sendMQTT(
-    "home/rgb1",
-    color.hexString.replace("#", "")
-  );
-});
-
-picker2.on("color:change", function(color)
-{
-  sendMQTT(
-    "home/rgb2",
-    color.hexString.replace("#", "")
-  );
-});
-
-document.getElementById("led1").addEventListener("change", function()
-{
-  if(this.checked)
-  {
-    sendMQTT("home/led1", "ON");
+  if (!toggle) {
+    console.warn(`Relay toggle not found: ${relayId}`);
+    return;
   }
-  else
-  {
-    sendMQTT("home/led1", "OFF");
-  }
-});
 
-document.getElementById("led2").addEventListener("change", function()
-{
-  if(this.checked)
-  {
-    sendMQTT("home/led2", "ON");
-  }
-  else
-  {
-    sendMQTT("home/led2", "OFF");
-  }
-});
+  toggle.checked = checked;
+}
 
-document.getElementById("led3").addEventListener("change", function()
-{
-  if(this.checked)
-  {
-    sendMQTT("home/led3", "ON");
-  }
-  else
-  {
-    sendMQTT("home/led3", "OFF");
-  }
-});
+function setupRelayToggles() {
+  relayIds.forEach((relayId, index) => {
+    const toggle = getRelayToggle(relayId);
 
-document.getElementById("led4").addEventListener("change", function()
-{
-  if(this.checked)
-  {
-    sendMQTT("home/led4", "ON");
+    if (!toggle) {
+      console.warn(`Relay toggle not found: ${relayId}`);
+      return;
+    }
+
+    toggle.addEventListener("change", () => {
+      const topic = relayTopics[index];
+      const message = toggle.checked ? "ON" : "OFF";
+
+      console.log(`${relayId} changed: ${message}`);
+      sendMQTT(topic, message);
+    });
+  });
+}
+
+function setupAllButtons() {
+  const allOnButton = document.getElementById("allOn");
+  const allOffButton = document.getElementById("allOff");
+
+  if (allOnButton) {
+    allOnButton.addEventListener("click", () => {
+      console.log("ALL ON clicked");
+
+      relayIds.forEach((relayId) => {
+        setRelayToggle(relayId, true);
+      });
+
+      sendMQTT("home/all", "ON");
+    });
+  } else {
+    console.warn("Button not found: allOn");
   }
-  else
-  {
-    sendMQTT("home/led4", "OFF");
+
+  if (allOffButton) {
+    allOffButton.addEventListener("click", () => {
+      console.log("ALL OFF clicked");
+
+      relayIds.forEach((relayId) => {
+        setRelayToggle(relayId, false);
+      });
+
+      sendMQTT("home/all", "OFF");
+    });
+  } else {
+    console.warn("Button not found: allOff");
   }
-});
+}
 
-document.getElementById("led5").addEventListener("change", function()
-{
-  if(this.checked)
-  {
-    sendMQTT("home/led5", "ON");
-  }
-  else
-  {
-    sendMQTT("home/led5", "OFF");
-  }
-});
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Telegram Mini App initialized");
 
-document.getElementById("allOn").addEventListener("click", () =>
-{
-  document
-    .querySelectorAll('input[type="checkbox"]')
-    .forEach(t => t.checked = true);
-
-  sendMQTT("home/all", "ON");
-});
-
-document.getElementById("allOff").addEventListener("click", () =>
-{
-  document
-    .querySelectorAll('input[type="checkbox"]')
-    .forEach(t => t.checked = false);
-
-  sendMQTT("home/all", "OFF");
+  setupRelayToggles();
+  setupAllButtons();
 });
