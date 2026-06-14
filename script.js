@@ -83,7 +83,7 @@ stopFanTimer(id);
 
 if (state) {
 
-```
+
 card.classList.remove("fan-stopping");
 card.classList.add("fan-start");
 
@@ -95,11 +95,11 @@ fanTimers[id] = setTimeout(() => {
   delete fanTimers[id];
 
 }, 2000);
-```
+
 
 } else {
 
-```
+
 card.classList.remove("fan-start");
 card.classList.remove("fan-running");
 
@@ -112,7 +112,7 @@ fanTimers[id] = setTimeout(() => {
   delete fanTimers[id];
 
 }, 2000);
-```
+
 
 }
 }
@@ -126,16 +126,16 @@ updateDeviceCounter();
 
 try {
 
-```
+
 await sendMQTT(
   device.topic,
   state ? "ON" : "OFF"
 );
-```
+
 
 } catch (error) {
 
-```
+
 console.error(error);
 
 checkbox.checked = !state;
@@ -146,7 +146,7 @@ updateCardVisuals(
 );
 
 updateDeviceCounter();
-```
+
 
 }
 }
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 devices.forEach(device => {
 
-```
+
 const checkbox =
   document.getElementById(device.id);
 
@@ -165,7 +165,7 @@ checkbox.addEventListener(
   "change",
   () => handleDevice(device, checkbox)
 );
-```
+
 
 });
 
@@ -173,7 +173,7 @@ document
 .getElementById("allOn")
 ?.addEventListener("click", async () => {
 
-```
+
   devices.forEach(device => {
 
     const cb =
@@ -200,13 +200,13 @@ document
     console.error(e);
   }
 });
-```
+
 
 document
 .getElementById("allOff")
 ?.addEventListener("click", async () => {
 
-```
+
   devices.forEach(device => {
 
     const cb =
@@ -233,7 +233,7 @@ document
     console.error(e);
   }
 });
-```
+
 
 updateDeviceCounter();
 });
