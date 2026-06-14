@@ -2,195 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>Living Hall</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Home Dashboard</title>
   <link rel="stylesheet" href="style.css" />
-
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="script.js" defer></script>
 </head>
 <body>
   <main class="app">
-    <header class="app-header">
-      <div class="header-text">
-        <h1>Living Hall</h1>
-        <p>System Online</p>
+    <h1>🏠 Smart Home Dashboard</h1>
+
+    <section class="dashboard">
+      <div class="card">
+        <h2>💡 Light 1</h2>
+        <label class="switch">
+          <input type="checkbox" id="light1" />
+          <span class="slider"></span>
+        </label>
       </div>
 
-      <div class="status-dot" aria-label="System Online">
-        <span></span>
+      <div class="card">
+        <h2>💡 Light 2</h2>
+        <label class="switch">
+          <input type="checkbox" id="light2" />
+          <span class="slider"></span>
+        </label>
       </div>
-    </header>
 
-    <section class="device-section" aria-labelledby="illumination-title">
-      <h2 id="illumination-title">ILLUMINATION</h2>
+      <div class="card">
+        <h2>💡 Light 3</h2>
+        <label class="switch">
+          <input type="checkbox" id="light3" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-      <div class="device-grid">
-        <article class="device-card light-card" id="card-light1">
-          <div class="device-icon bulb-icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <path d="M23 51h18" />
-              <path d="M25 57h14" />
-              <path d="M32 7c-10 0-18 8-18 18 0 7 4 12 9 15 2 1 3 4 3 6h12c0-2 1-5 3-6 5-3 9-8 9-15 0-10-8-18-18-18Z" />
-              <path d="M26 25c0-3 3-6 6-6" />
-            </svg>
-          </div>
+      <div class="card">
+        <h2>💡 Light 4</h2>
+        <label class="switch">
+          <input type="checkbox" id="light4" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-          <h3>Light 1</h3>
+      <div class="card">
+        <h2>🌀 Fan 1</h2>
+        <label class="switch">
+          <input type="checkbox" id="fan1" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-          <label class="toggle-switch" for="light1">
-            <input type="checkbox" id="light1" />
-            <span></span>
-          </label>
-        </article>
+      <div class="card">
+        <h2>🌀 Fan 2</h2>
+        <label class="switch">
+          <input type="checkbox" id="fan2" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-        <article class="device-card light-card" id="card-light2">
-          <div class="device-icon bulb-icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <path d="M23 51h18" />
-              <path d="M25 57h14" />
-              <path d="M32 7c-10 0-18 8-18 18 0 7 4 12 9 15 2 1 3 4 3 6h12c0-2 1-5 3-6 5-3 9-8 9-15 0-10-8-18-18-18Z" />
-              <path d="M26 25c0-3 3-6 6-6" />
-            </svg>
-          </div>
+      <div class="card">
+        <h2>🌀 Fan 3</h2>
+        <label class="switch">
+          <input type="checkbox" id="fan3" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
-          <h3>Light 2</h3>
-
-          <label class="toggle-switch" for="light2">
-            <input type="checkbox" id="light2" />
-            <span></span>
-          </label>
-        </article>
-
-        <article class="device-card light-card" id="card-light3">
-          <div class="device-icon bulb-icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <path d="M23 51h18" />
-              <path d="M25 57h14" />
-              <path d="M32 7c-10 0-18 8-18 18 0 7 4 12 9 15 2 1 3 4 3 6h12c0-2 1-5 3-6 5-3 9-8 9-15 0-10-8-18-18-18Z" />
-              <path d="M26 25c0-3 3-6 6-6" />
-            </svg>
-          </div>
-
-          <h3>Light 3</h3>
-
-          <label class="toggle-switch" for="light3">
-            <input type="checkbox" id="light3" />
-            <span></span>
-          </label>
-        </article>
-
-        <article class="device-card light-card" id="card-light4">
-          <div class="device-icon bulb-icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <path d="M23 51h18" />
-              <path d="M25 57h14" />
-              <path d="M32 7c-10 0-18 8-18 18 0 7 4 12 9 15 2 1 3 4 3 6h12c0-2 1-5 3-6 5-3 9-8 9-15 0-10-8-18-18-18Z" />
-              <path d="M26 25c0-3 3-6 6-6" />
-            </svg>
-          </div>
-
-          <h3>Light 4</h3>
-
-          <label class="toggle-switch" for="light4">
-            <input type="checkbox" id="light4" />
-            <span></span>
-          </label>
-        </article>
+      <div class="card">
+        <h2>🌀 Fan 4</h2>
+        <label class="switch">
+          <input type="checkbox" id="fan4" />
+          <span class="slider"></span>
+        </label>
       </div>
     </section>
 
-    <section class="device-section" aria-labelledby="climate-title">
-      <h2 id="climate-title">CLIMATE CONTROL</h2>
-
-      <div class="device-grid">
-        <article class="device-card fan-card" id="card-fan1">
-          <div class="device-icon fan-icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <circle cx="32" cy="32" r="4" />
-              <path d="M32 28c2-12 8-20 16-20 5 0 9 4 9 9 0 9-12 14-21 16" />
-              <path d="M36 34c11 4 18 11 16 19-1 5-6 8-11 7-9-2-12-14-12-23" />
-              <path d="M28 34c-9 8-19 10-24 4-3-4-2-10 2-13 7-5 17 1 25 8" />
-            </svg>
-          </div>
-
-          <h3>Fan 1</h3>
-
-          <label class="toggle-switch" for="fan1">
-            <input type="checkbox" id="fan1" />
-            <span></span>
-          </label>
-        </article>
-
-        <article class="device-card fan-card" id="card-fan2">
-          <div class="device-icon fan-icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <circle cx="32" cy="32" r="4" />
-              <path d="M32 28c2-12 8-20 16-20 5 0 9 4 9 9 0 9-12 14-21 16" />
-              <path d="M36 34c11 4 18 11 16 19-1 5-6 8-11 7-9-2-12-14-12-23" />
-              <path d="M28 34c-9 8-19 10-24 4-3-4-2-10 2-13 7-5 17 1 25 8" />
-            </svg>
-          </div>
-
-          <h3>Fan 2</h3>
-
-          <label class="toggle-switch" for="fan2">
-            <input type="checkbox" id="fan2" />
-            <span></span>
-          </label>
-        </article>
-
-        <article class="device-card fan-card" id="card-fan3">
-          <div class="device-icon fan-icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <circle cx="32" cy="32" r="4" />
-              <path d="M32 28c2-12 8-20 16-20 5 0 9 4 9 9 0 9-12 14-21 16" />
-              <path d="M36 34c11 4 18 11 16 19-1 5-6 8-11 7-9-2-12-14-12-23" />
-              <path d="M28 34c-9 8-19 10-24 4-3-4-2-10 2-13 7-5 17 1 25 8" />
-            </svg>
-          </div>
-
-          <h3>Fan 3</h3>
-
-          <label class="toggle-switch" for="fan3">
-            <input type="checkbox" id="fan3" />
-            <span></span>
-          </label>
-        </article>
-
-        <article class="device-card fan-card" id="card-fan4">
-          <div class="device-icon fan-icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <circle cx="32" cy="32" r="4" />
-              <path d="M32 28c2-12 8-20 16-20 5 0 9 4 9 9 0 9-12 14-21 16" />
-              <path d="M36 34c11 4 18 11 16 19-1 5-6 8-11 7-9-2-12-14-12-23" />
-              <path d="M28 34c-9 8-19 10-24 4-3-4-2-10 2-13 7-5 17 1 25 8" />
-            </svg>
-          </div>
-
-          <h3>Fan 4</h3>
-
-          <label class="toggle-switch" for="fan4">
-            <input type="checkbox" id="fan4" />
-            <span></span>
-          </label>
-        </article>
-      </div>
+    <section class="master">
+      <button id="allOn" type="button">🏠 ALL ON</button>
+      <button id="allOff" type="button">🏠 ALL OFF</button>
     </section>
-
-    <footer class="bottom-panel">
-      <div class="active-devices">
-        <span>Active Devices</span>
-        <strong id="activeCount">0 / 8</strong>
-      </div>
-
-      <div class="quick-actions">
-        <button type="button" id="allOn">All On</button>
-        <button type="button" id="allOff">All Off</button>
-      </div>
-    </footer>
   </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
