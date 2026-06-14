@@ -1,178 +1,122 @@
-const tg = window.Telegram?.WebApp;
-
-if (tg) {
-  tg.expand();
-}
+const tg = window.Telegram.WebApp;
+tg.expand();
 
 const controls = [
-  { id: "light1", type: "light" },
-  { id: "light2", type: "light" },
-  { id: "light3", type: "light" },
-  { id: "light4", type: "light" },
-  { id: "fan1", type: "fan" },
-  { id: "fan2", type: "fan" },
-  { id: "fan3", type: "fan" },
-  { id: "fan4", type: "fan" }
+  { id: "light1", topic: "home/light1" },
+  { id: "light2", topic: "home/light2" },
+  { id: "light3", topic: "home/light3" },
+  { id: "light4", topic: "home/light4" },
+  { id: "fan1", topic: "home/fan1" },
+  { id: "fan2", topic: "home/fan2" },
+  { id: "fan3", topic: "home/fan3" },
+  { id: "fan4", topic: "home/fan4" }
 ];
 
-const fanTimers = {};
+async function sendMQTT(topic, message) {
+  console.log("Publishing MQTT message:", { topic, message });
 
-function updateDeviceCounter() {
+  try {
+    const response = await fetch("/api/publish", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        topic,
+        message
+      })
+    });
 
-  const active = controls.filter(device => {
-    const el = document.getElementById(device.id);
-    return el && el.checked;
-  }).length;
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}`);
+    }
 
-  const counter = document.getElementById("activeCount");
-
-  if (counter) {
-    counter.textContent = `${active} / 8`;
+    const result = await response.json().catch(() => null);
+    console.log("MQTT publish successful:", result);
+    return result;
+  } catch (error) {
+    console.error("MQTT publish failed:", error);
+    throw error;
   }
 }
 
-function stopFanTimer(id) {
+function setAllCheckboxes(checked) {
+  controls.forEach(({ id }) => {
+    const checkbox = document.getElementById(id);
 
-  if (fanTimers[id]) {
-    clearTimeout(fanTimers[id]);
-    delete fanTimers[id];
-  }
+    if (!checkbox) {
+      console.warn(`Checkbox not found: ${id}`);
+      return;
+    }
+
+    checkbox.checked = checked;
+  });
 }
 
-function updateCardVisuals(id, state) {
+function initializeControls() {
+  controls.forEach(({ id, topic }) => {
+    const checkbox = document.getElementById(id);
 
-  const checkbox = document.getElementById(id);
+    if (!checkbox) {
+      console.warn(`Checkbox not found: ${id}`);
+      return;
+    }
 
-  if (!checkbox) return;
+    checkbox.addEventListener("change", async () => {
+      const message = checkbox.checked ? "ON" : "OFF";
 
-  const card = checkbox.closest(".device-card");
+      console.log(`${id} changed: ${message}`);
 
-  if (!card) return;
+      try {
+        await sendMQTT(topic, message);
+      } catch (error) {
+        checkbox.checked = !checkbox.checked;
+        console.error(`${id} reverted due to publish error`);
+      }
+    });
+  });
+}
 
-  if (state) {
-    card.classList.add("active");
+function initializeAllButtons() {
+  const allOnButton = document.getElementById("allOn");
+  const allOffButton = document.getElementById("allOff");
+
+  if (allOnButton) {
+    allOnButton.addEventListener("click", async () => {
+      console.log("ALL ON clicked");
+
+      setAllCheckboxes(true);
+
+      try {
+        await sendMQTT("home/all", "ON");
+      } catch (error) {
+        console.error("ALL ON publish failed:", error);
+      }
+    });
   } else {
-    card.classList.remove("active");
+    console.warn('Button not found: allOn');
   }
 
-  if (!id.startsWith("fan")) {
-    return;
-  }
+  if (allOffButton) {
+    allOffButton.addEventListener("click", async () => {
+      console.log("ALL OFF clicked");
 
-  stopFanTimer(id);
+      setAllCheckboxes(false);
 
-  if (state) {
-
-    card.classList.remove("fan-stopping");
-    card.classList.add("fan-start");
-
-    fanTimers[id] = setTimeout(() => {
-
-      card.classList.remove("fan-start");
-      card.classList.add("fan-running");
-
-      delete fanTimers[id];
-
-    }, 2000);
-
+      try {
+        await sendMQTT("home/all", "OFF");
+      } catch (error) {
+        console.error("ALL OFF publish failed:", error);
+      }
+    });
   } else {
-
-    card.classList.remove("fan-start");
-    card.classList.remove("fan-running");
-
-    card.classList.add("fan-stopping");
-
-    fanTimers[id] = setTimeout(() => {
-
-      card.classList.remove("fan-stopping");
-
-      delete fanTimers[id];
-
-    }, 2000);
+    console.warn('Button not found: allOff');
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("Telegram Mini App initialized");
 
-  controls.forEach(device => {
-
-    const checkbox = document.getElementById(device.id);
-
-    if (!checkbox) {
-      console.warn("Missing checkbox:", device.id);
-      return;
-    }
-
-    checkbox.addEventListener("change", () => {
-
-      const state = checkbox.checked;
-
-      console.log(
-        `${device.id} -> ${state ? "ON" : "OFF"}`
-      );
-
-      updateCardVisuals(
-        device.id,
-        state
-      );
-
-      updateDeviceCounter();
-    });
-  });
-
-  const allOn = document.getElementById("allOn");
-
-  if (allOn) {
-
-    allOn.addEventListener("click", () => {
-
-      controls.forEach(device => {
-
-        const cb = document.getElementById(device.id);
-
-        if (!cb) return;
-
-        cb.checked = true;
-
-        updateCardVisuals(
-          device.id,
-          true
-        );
-      });
-
-      updateDeviceCounter();
-
-      console.log("ALL ON");
-    });
-  }
-
-  const allOff = document.getElementById("allOff");
-
-  if (allOff) {
-
-    allOff.addEventListener("click", () => {
-
-      controls.forEach(device => {
-
-        const cb = document.getElementById(device.id);
-
-        if (!cb) return;
-
-        cb.checked = false;
-
-        updateCardVisuals(
-          device.id,
-          false
-        );
-      });
-
-      updateDeviceCounter();
-
-      console.log("ALL OFF");
-    });
-  }
-
-  updateDeviceCounter();
-
-  console.log("Fan Animation Ready");
+  initializeControls();
+  initializeAllButtons();
 });
